@@ -28,4 +28,27 @@ limit 1;
 SELECT "BillingCountry", COUNT ("CustomerId") FROM "Invoice"
 Group By "BillingCountry"
 
+-- the top five customers in terms of sales i.e. find the five customers whose total combined invoice amounts are the highest. Give their name, CustomerId and total invoice amount.
+SELECT CONCAT ("FirstName",' ', "LastName") AS "FullName",Inv."CustomerId", Inv."Total" FROM "Customer" Cus
+JOIN "Invoice" Inv
+ON Cus."CustomerId" = Inv."CustomerId"
+ORDER BY "Total" DESC
+LIMIT 5;
 
+-- Find out the state-wise count of customerID and list the names of states with the count of customerID in decreasing order. Note:- do not include where states isnull value.
+SELECT "State", COUNT ("CustomerId") AS "Numberofcustomers" FROM "Customer"
+WHERE "State" IS NOT NULL 
+GROUP BY "State"
+ORDER BY "Numberofcustomers" DESC
+
+-- How many Invoices were there in 2009 and 2011
+SELECT COUNT ("Total") FROM "Invoice"
+WHERE "InvoiceDate" BETWEEN '2009-01-01'AND '2011-01-01'
+
+-- showing only the Employees who are Sales Agents
+SELECT CONCAT ("FirstName",' ',"LastName") AS "FullName","Title" FROM "Employee"
+WHERE "Title" = 'Sales Support Agent'
+
+-- What was the invoice date for invoice ID 315?
+SELECT "InvoiceDate","InvoiceId" FROM "Invoice"
+WHERE "InvoiceId" = '315'
