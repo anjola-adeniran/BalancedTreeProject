@@ -65,8 +65,16 @@ ORDER BY "Total" DESC
 LIMIT 3
 
 -- Provide a query that shows the most purchased Media Type.
+SELECT "Media Type", MAX ("Most Purchased") AS "Most Purchased Media Type" FROM 
+	(SELECT (Mdt."Name") AS "Media Type",Mdt."MediaTypeId",Tra."TrackId", SUM (Ivl."UnitPrice") AS "Most Purchased",Ivl."InvoiceId" FROM "Track" Tra
+	JOIN "MediaType" Mdt
+	ON Tra."MediaTypeId" = Mdt."MediaTypeId"
+	JOIN "InvoiceLine" Ivl
+	ON Tra."TrackId" = Ivl."TrackId"
+	GROUP BY Mdt."Name",Mdt."MediaTypeId",Tra."TrackId",Ivl."InvoiceId") AS Subquery
+GROUP BY "Media Type"
 
--- query that shows the number of tracks purchased in all invoices that contain more than one genre.
+
 
 
 
