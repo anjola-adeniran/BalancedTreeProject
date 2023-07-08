@@ -27,14 +27,16 @@ limit 1;
 SELECT "BillingCountry", COUNT ("CustomerId") FROM "Invoice"
 Group By "BillingCountry"
 
--- the top five customers in terms of sales i.e. find the five customers whose total combined invoice amounts are the highest. Give their name, CustomerId and total invoice amount.
+-- the top five customers in terms of sales i.e. find the five customers whose total combined invoice amounts are the highest. 
+-- Give their name, CustomerId and total invoice amount.
 SELECT CONCAT ("FirstName",' ', "LastName") AS "FullName",Inv."CustomerId", Inv."Total" FROM "Customer" Cus
 JOIN "Invoice" Inv
 ON Cus."CustomerId" = Inv."CustomerId"
 ORDER BY "Total" DESC
 LIMIT 5;
 
--- Find out the state-wise count of customerID and list the names of states with the count of customerID in decreasing order. Note:- do not include where states isnull value.
+-- Find out the state-wise count of customerID and list the names of states with the count of customerID in decreasing order. 
+-- Do not include where states isnull value.
 SELECT "State", COUNT ("CustomerId") AS "Numberofcustomers" FROM "Customer"
 WHERE "State" IS NOT NULL 
 GROUP BY "State"
@@ -66,7 +68,8 @@ WHERE "Email" LIKE 'J%gmail.com'
 SELECT CONCAT ("FirstName", ' ',"LastName") AS "FullName","CustomerId","Country" FROM "Customer"
 WHERE "Country" NOT IN ('USA')
 
--- A query showing the Invoices of customers who are from Brazil. The resultant table should show the customer's full name, Invoice ID, Date of the invoice and billing country
+-- A query showing the Invoices of customers who are from Brazil. 
+-- The resultant table should show the customer's full name, Invoice ID, Date of the invoice and billing country
 SELECT inv."InvoiceId",inv."InvoiceDate",inv."BillingCountry",CONCAT("FirstName",' ',"LastName") AS "FullName" FROM "Invoice" inv 
 JOIN "Customer" cus ON inv."CustomerId" = cus."CustomerId"
 WHERE "BillingCountry" IN ('Brazil')
