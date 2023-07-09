@@ -95,8 +95,7 @@ SELECT
 	inv."InvoiceId",
 	inv."Total",
 	Cus."FirstName" || ' ' || Cus."LastName" AS "Customer Name",
-	Cus."Country"
-	
+	Cus."Country"	
 FROM 
 	"Employee" Emp
 JOIN "Customer" Cus
