@@ -34,7 +34,7 @@ SELECT
   sa.countOfTransactions,
   sa.member,
   ta.overall_total,
-  (sa.countOfTransactions::float / ta.overall_total) * 100 AS Percentage
+  sa.countOfTransactions/ ta.overall_total::float * 100 AS Percentage
 FROM
 	(SELECT
     count(txn_id) AS overall_total
@@ -49,9 +49,16 @@ FROM
     GROUP BY
       member
   ) AS sa;
-
-
+  
+  
 -- What is the average revenue for member transactions and non-member transactions
+SELECT round(avg(Revenue),3),member 
+FROM
+	(SELECT member,txn_id, SUM(qty * price) AS Revenue
+	FROM balanced_tree.sales
+	GROUP BY txn_id,member
+	) AS subquery
+group by member
 
 -- What are the top 3 products by total revenue before discount?
 SELECT prod_id, SUM (qty * price) AS TotalRevenue
@@ -68,20 +75,29 @@ ON sales.prod_id = product_details.product_id
 GROUP BY segment_id
 
 -- What is the top selling product for each segment?
-SELECT segment_id, segment_name, (sales.qty * sales.price) AS Revenue
-FROM balanced_tree.sales
-JOIN balanced_tree.product_details
-ON sales.prod_id = product_details.product_id
-GROUP BY segment_id, segment_name, sales.price, sales.qty
-ORDER BY Revenue DESC
+SELECT MAX("TopSelling") AS "TopSellingProducts", product_name,segment_id
+FROM (
+	SELECT segment_id, product_name, COUNT (txn_id) AS "TopSelling"
+	FROM balanced_tree.sales
+	JOIN balanced_tree.product_details
+	ON sales.prod_id = product_details.product_id
+	GROUP BY segment_id, product_name
+	ORDER BY COUNT (txn_id) DESC
+	) AS Subquery
+GROUP BY product_name, segment_id
 
 -- What is the top selling product for each category?
+
+
+
 -- What is the total quantity, revenue and discount for each category?
 SELECT category_id, SUM (qty) AS TotalQuantity, SUM (sales.qty * sales.price) AS TotalRevenue,SUM (discount) AS TotalDiscount
 FROM balanced_tree.sales
 JOIN balanced_tree.product_details
 ON sales.prod_id = product_details.product_id
 GROUP BY category_id
+
+
 
 
 
