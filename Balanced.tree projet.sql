@@ -8,6 +8,7 @@ FROM (
     FROM balanced_tree.sales
     GROUP BY prod_id, qty, price
 ) AS subquery;
+
 -- What was the total discount amount for all products?
 SELECT SUM (discount) AS "Total Discount"
 FROM balanced_tree.sales
@@ -29,4 +30,60 @@ FROM balanced_tree.sales
 GROUP BY txn_id;
 	
 -- What is the percentage split of all transactions for members vs non-members
+SELECT
+  sa.countOfTransactions,
+  sa.member,
+  ta.overall_total,
+  (sa.countOfTransactions::float / ta.overall_total) * 100 AS Percentage
+FROM
+	(SELECT
+    count(txn_id) AS overall_total
+    FROM
+     balanced_tree.sales 
+  ) AS ta,
+    (SELECT
+      member,
+      count(txn_id) AS countOfTransactions
+    FROM
+      balanced_tree.sales
+    GROUP BY
+      member
+  ) AS sa;
+
+
 -- What is the average revenue for member transactions and non-member transactions
+
+-- What are the top 3 products by total revenue before discount?
+SELECT prod_id, SUM (qty * price) AS TotalRevenue
+FROM balanced_tree.sales
+GROUP BY prod_id, qty, price
+ORDER BY TotalRevenue DESC
+LIMIT 3;
+
+-- What is the total quantity, revenue and discount for each segment?
+SELECT segment_id, SUM (qty) AS TotalQuantity, SUM (sales.qty * sales.price) AS TotalRevenue,SUM (discount) AS TotalDiscount
+FROM balanced_tree.sales
+JOIN balanced_tree.product_details
+ON sales.prod_id = product_details.product_id
+GROUP BY segment_id
+
+-- What is the top selling product for each segment?
+SELECT segment_id, segment_name, (sales.qty * sales.price) AS Revenue
+FROM balanced_tree.sales
+JOIN balanced_tree.product_details
+ON sales.prod_id = product_details.product_id
+GROUP BY segment_id, segment_name, sales.price, sales.qty
+ORDER BY Revenue DESC
+
+-- What is the top selling product for each category?
+-- What is the total quantity, revenue and discount for each category?
+SELECT category_id, SUM (qty) AS TotalQuantity, SUM (sales.qty * sales.price) AS TotalRevenue,SUM (discount) AS TotalDiscount
+FROM balanced_tree.sales
+JOIN balanced_tree.product_details
+ON sales.prod_id = product_details.product_id
+GROUP BY category_id
+
+
+
+
+
