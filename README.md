@@ -5,17 +5,17 @@ Welcome to the Balanced Tree Clothing Company's SQL case study! In this project,
                                                  Datasets
 There are 4 datasets available for this case study. However, to answer the regular questions, we will only utilize 2 main tables. The additional 2 tables are used for the bonus challenge question.
 
-                                          Key Business Questions
+                                              Key Business Questions
 Below are the key business questions and metrics that the Balanced Tree team requires for their monthly reports. Each question can be answered using a single query. As we write SQL to solve each problem, we'll consider how to generate all these metrics in a single SQL script, which the Balanced Tree team can run each month.
 
-                                                         High Level Sales Analysis
+                                              High Level Sales Analysis
 What was the total quantity sold for all products?
 
 What is the total generated revenue for all products before discounts?
 
 What was the total discount amount for all products?
 
-                                                     Transaction Analysis
+                                            Transaction Analysis
 How many unique transactions were there?
 
 What is the average unique products purchased in each transaction?
@@ -28,7 +28,7 @@ What is the percentage split of all transactions for members vs. non-members?
 
 What is the average revenue for member transactions and non-member transactions?
                                                    
-                                                   Product Analysis
+                                              Product Analysis
 What are the top 3 products by total revenue before discount?
 
 What is the total quantity, revenue, and discount for each segment?
