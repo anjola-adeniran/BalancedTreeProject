@@ -1,6 +1,6 @@
                                                  Balanced Tree Clothing Company Sales Analysis
 
-Welcome to the Balanced Tree Clothing Company's SQL case study! In this project, we will help the company's merchandising teams analyze their sales performance and generate a basic financial report to share with the wider business. Each question can be answered using a single query - but as you are writing the SQL to solve each individual problem, keep in mind how you would generate all of these metrics in a single SQL script which the Balanced Tree team can run each month.
+Welcome to the Balanced Tree Clothing Company's SQL case study! For this project, I worked with data from Balanced Tree Clothing Company to analyze their sales performance and generate a basic financial report to share with the wider business. Each question can be answered using a single query, but as you are writing the SQL to solve each individual problem, keep in mind how you would generate all of these metrics in a single SQL script which the Balanced Tree team can run each month.
 
                                                  Datasets
 There are 4 datasets available for this case study. However, to answer the regular questions, we will only utilize 2 main tables. The additional 2 tables are used for the bonus challenge question.
@@ -8,7 +8,7 @@ There are 4 datasets available for this case study. However, to answer the regul
                                               Key Business Questions
 Below are the key business questions and metrics that the Balanced Tree team requires for their monthly reports. Each question can be answered using a single query. As we write SQL to solve each problem, we'll consider how to generate all these metrics in a single SQL script, which the Balanced Tree team can run each month.
 
-                                              High Level Sales Analysis
+                                              High-Level Sales Analysis
 What was the total quantity sold for all products?
 
 What is the total generated revenue for all products before discounts?
