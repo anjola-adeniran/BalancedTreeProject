@@ -39,26 +39,7 @@ FROM balanced_tree.sales
 GROUP BY txn_id)
 	SELECT Round(AVG(Txn_discount),2) AS AverageDiscount
 	FROM t;
--- What is the percentage split of all transactions for members vs non-members
-SELECT
-  sa.countOfTransactions,
-  sa.member,
-  ta.overall_total,
-ROUND (sa.countOfTransactions/ ta.overall_total::numeric * 100) AS Percentage
-FROM
-	(SELECT
-    count(txn_id) AS overall_total
-    FROM
-     balanced_tree.sales 
-  ) AS ta,
-    (SELECT
-      member,
-      count(txn_id) AS countOfTransactions
-    FROM
-      balanced_tree.sales
-    GROUP BY
-      member
-  ) AS sa;
+
 --  What is the percentage split of all transactions for members vs non-members?
 SELECT member,
        ROUND(100 * COUNT(member)::numeric / (SELECT COUNT(member)
